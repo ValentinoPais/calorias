@@ -84,6 +84,8 @@
   .seg-c { background: var(--c); } .seg-g { background: var(--g); } .seg-p { background: var(--p); }
   .line { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
   .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pcol { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .cap { font-size: 9.5px; color: var(--light); letter-spacing: .02em; line-height: 1; }
   .pill { display: inline-flex; align-items: baseline; gap: 3px; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 11px; font-weight: 700; line-height: 22px; white-space: nowrap; }
   .pill i { font-style: normal; font-weight: 500; font-size: 9px; }
   .pill-c { background: var(--c-bg); color: var(--c-ink); } .pill-g { background: var(--g-bg); color: var(--g-ink); } .pill-p { background: var(--p-bg); color: var(--p-ink); }
@@ -292,7 +294,7 @@
   }
   function objetivoHTML() {
     return '<div class="screen pad">' +
-      '<div style="height:24px"></div><h1>Objetivo</h1><div style="flex:1;min-height:24px;max-height:56px"></div>' +
+      '<div class="top"><button class="back" data-act="volver-encuesta">‹ Volver</button></div><h1>Objetivo</h1><div style="flex:1;min-height:24px;max-height:56px"></div>' +
       '<div class="bigrow" style="justify-content:center"><span class="big">' + fmt(calc.objetivo) + '</span><span class="muted">kcal/día</span></div>' +
       '<div style="flex:1;min-height:24px;max-height:56px"></div>' +
       '<div class="srow"><span class="muted">Mantenimiento</span><span>' + fmt(calc.mant) + ' kcal</span></div>' +
@@ -309,11 +311,11 @@
     var m = macros(t), mk = m.reduce(function (a, x) { return a + x.kcal; }, 0);
     var frac = Math.min(t.kcal / obj, 1);
     var segs = m.map(function (x) { return '<i class="seg-' + x.key + '" style="width:' + (mk ? x.kcal / mk * frac * 100 : 0) + '%"></i>'; }).join('');
-    var pills = m.map(function (x) { return '<span class="pill pill-' + x.key + '" title="' + x.nombre + '">' + x.pct + '%<i>· ' + fmt(x.g) + ' g</i></span>'; }).join('');
+    var pills = m.map(function (x) { return '<span class="pcol"><span class="pill pill-' + x.key + '">' + x.pct + '%<i>· ' + fmt(x.g) + ' g</i></span><span class="cap">' + x.nombre + '</span></span>'; }).join('');
     return '<div class="hero">' +
       '<div class="bigrow"><span class="big">' + fmt(t.kcal) + '</span><span class="muted">kcal <span class="light">/ ' + fmt(obj) + '</span></span></div>' +
       '<div class="bar2">' + segs + '</div>' +
-      '<div class="line"><span class="pills">' + pills + '</span><span class="pill rest' + (over ? ' red' : '') + '">' + (over ? '+' : '−') + fmt(Math.abs(rest)) + '</span></div></div>';
+      '<div class="line"><span class="pills">' + pills + '</span><span class="pcol"><span class="pill rest' + (over ? ' red' : '') + '">' + (over ? '+' : '−') + fmt(Math.abs(rest)) + '</span><span class="cap">' + (over ? 'de más' : 'quedan') + '</span></span></div></div>';
   }
   function listHTML(k) {
     var ms = meals(k).slice().sort(function (a, b) { return a.hora < b.hora ? -1 : a.hora > b.hora ? 1 : 0; });
@@ -515,6 +517,7 @@
       case 'calcular':
         document.querySelectorAll('.ctl input').forEach(function (i) { i.value = setField(i.closest('.ctl').getAttribute('data-f'), num(i.value)); });
         calc = calcular(form); view = 'objetivo'; render(); break;
+      case 'volver-encuesta': view = 'encuesta'; render(); break;
       case 'empezar':
         S.perfil = { sexo: form.sexo, edad: form.edad, altura: form.altura, peso: form.peso, bajar: form.bajar, semanas: form.semanas, actividad: form.actividad, objetivo: calc.objetivo, mant: calc.mant };
         save(); form = null; view = 'hoy'; render(); break;
