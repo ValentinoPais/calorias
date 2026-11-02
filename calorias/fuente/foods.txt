@@ -1,0 +1,417 @@
+# nombre|unidad|kcal|prot|carb|grasa|porciones|alias
+# valores por 100 g (o 100 ml). porciones: "etiqueta=gramos;..." o un set: CER VEG BEB VASO TAZA CARNE FETA CDA PLATO PORC
+
+# ---------- Cereales, panes y harinas ----------
+Arroz blanco crudo|g|365|7.1|80|0.7|media taza=95;1 taza=190;cucharada=12
+Arroz blanco cocido|g|130|2.7|28|0.3|CER
+Arroz integral crudo|g|370|7.9|77|2.9|media taza=95;1 taza=190
+Arroz integral cocido|g|112|2.6|24|0.9|CER
+Arroz yamaní cocido|g|112|2.6|24|0.9|CER
+Arroz con leche|g|120|3.5|21|2.5|pote chico=120;taza=200
+Fideos secos crudos|g|371|13|75|1.5|porción chica=70;porción=100;paquete 500 g=500|pasta,tallarines,spaghetti
+Fideos secos cocidos|g|158|5.8|31|0.9|media taza=70;1 taza=140;1 plato=250|pasta,tallarines,spaghetti
+Fideos frescos cocidos|g|131|5.2|25|1.1|media taza=70;1 taza=140;1 plato=250|pasta
+Fideos de arroz cocidos|g|109|0.9|25|0.2|CER
+Ñoquis de papa cocidos|g|140|3.5|28|1.5|1 plato chico=200;1 plato=300|noquis
+Ravioles de verdura cocidos|g|165|6.5|25|4.5|1 plato chico=200;1 plato=300
+Sorrentinos cocidos|g|200|8|28|6|6 unidades=180;1 plato=300
+Canelones de verdura con salsa|g|140|7|14|6|1 canelón=150;2 canelones=300
+Lasaña|g|170|10|15|8|porción=300
+Polenta cruda (harina de maíz)|g|362|8|77|1.5|media taza=70;1 taza=140
+Polenta cocida|g|85|2|18|0.4|1 plato chico=200;1 plato=300
+Avena arrollada|g|379|13|68|6.5|cucharada=10;media taza=40;1 taza=80
+Avena cocida con leche|g|100|4|15|3|bowl chico=200;bowl=300
+Quinoa cocida|g|120|4.4|21|1.9|media taza=90;1 taza=185
+Cuscús cocido|g|112|3.8|23|0.2|media taza=80;1 taza=160
+Harina de trigo 000|g|364|10|76|1|cucharada=10;1 taza=120
+Pan francés|g|275|9|55|1.5|1 rebanada=30;medio pancito=35;1 pancito (felipe)=70;1 flauta=180|pan,flauta,felipe,mignon
+Pan lactal blanco|g|265|8.5|49|3.5|1 rebanada=25;2 rebanadas=50|pan de molde
+Pan lactal integral|g|250|10|43|3.5|1 rebanada=25;2 rebanadas=50|pan de molde
+Pan integral de panadería|g|260|9|50|2.5|1 rebanada=30;2 rebanadas=60|pan de salvado
+Pan árabe (pita)|g|275|9|55|1.2|1 unidad=60
+Pan de hamburguesa|g|280|9|50|4|1 unidad=60
+Pan de pancho|g|280|9|50|4|1 unidad=45
+Tostadas de paquete|g|380|12|73|5|1 unidad=8;2 unidades=16;4 unidades=32
+Galletitas de agua|g|420|10|70|11|1 unidad=6;3 unidades=18;6 unidades=36|criollitas,express,cracker
+Galletitas de salvado|g|410|11|65|12|1 unidad=7;3 unidades=21|cerealitas
+Galletitas dulces surtidas|g|450|7|70|15|1 unidad=7;3 unidades=21|lincoln,manon
+Galletitas rellenas tipo Oreo|g|480|5|70|20|1 unidad=11;3 unidades=33|oreo,rellenas
+Vainillas|g|390|8|78|5|1 unidad=8;3 unidades=24
+Grisines|g|400|12|75|5|1 unidad=5;4 unidades=20
+Medialuna de manteca|g|400|8|50|18|1 unidad=45;2 unidades=90;3 unidades=135|factura
+Medialuna de grasa|g|380|8|55|14|1 unidad=40;2 unidades=80;3 unidades=120|factura
+Factura rellena (vigilante, cañoncito)|g|380|7|55|14|1 unidad=60;2 unidades=120|factura,vigilante
+Bizcochitos de grasa|g|480|8|55|25|1 unidad=10;5 unidades=50;puñado=40
+Tortita negra|g|390|7|60|13|1 unidad=55
+Chipá|g|350|10|45|15|1 unidad=30;3 unidades=90
+Pastelito frito (de membrillo)|g|400|5|55|18|1 unidad=60
+Churros|g|450|6|55|23|1 unidad=40;1 relleno dulce de leche=60
+Torta frita|g|400|7|50|19|1 unidad=50
+Scon|g|380|8|55|14|1 unidad=50
+Muffin|g|400|6|50|20|1 unidad=80
+Dona|g|450|5|50|26|1 unidad=70
+Budín|g|380|6|55|15|1 rodaja=50
+Bizcochuelo|g|350|6|55|12|1 porción=100
+Torta de chocolate|g|400|5|50|21|1 porción=120
+Pastafrola|g|350|5|60|10|1 porción=100
+Cereal de desayuno (copos de maíz)|g|370|7|84|0.8|media taza=15;1 taza=30|corn flakes
+Cereal azucarado|g|380|5|89|0.5|media taza=15;1 taza=30|zucaritas,froot loops
+Granola|g|450|10|65|17|cucharada=12;media taza=50;1 taza=100
+Barrita de cereal|g|400|6|70|10|1 unidad=23
+Tostada de pan lactal|g|300|9|55|4|1 unidad=22;2 unidades=44
+
+# ---------- Comidas preparadas ----------
+Pizza de muzzarella|g|265|11|30|11|1 porción=120;2 porciones=240;media pizza=480|pizza
+Pizza de jamón y morrones|g|250|12|28|10|1 porción=130;2 porciones=260
+Fugazzeta|g|300|11|32|14|1 porción=130;2 porciones=260
+Fainá|g|220|8|25|10|1 porción=100
+Empanada de carne al horno|g|280|11|28|14|1 unidad=90;2 unidades=180;3 unidades=270|empanada
+Empanada de carne frita|g|320|11|28|19|1 unidad=90;2 unidades=180;3 unidades=270|empanada
+Empanada de pollo|g|250|12|28|10|1 unidad=90;2 unidades=180;3 unidades=270|empanada
+Empanada de jamón y queso|g|290|12|30|14|1 unidad=90;2 unidades=180;3 unidades=270|empanada
+Empanada de humita|g|240|6|32|10|1 unidad=90;2 unidades=180|empanada
+Tarta de verdura|g|200|8|18|11|1 porción=150;2 porciones=300|tarta de acelga
+Tarta de jamón y queso|g|260|11|20|15|1 porción=150;2 porciones=300
+Tarta de zapallitos|g|180|7|15|10|1 porción=150
+Tortilla de papa|g|160|5|14|9|1 porción=150;1 porción grande=250
+Tortilla de acelga|g|150|6|10|9|1 porción=150
+Omelette de queso|g|200|13|2|15|1 porción=150
+Revuelto gramajo|g|200|9|14|12|1 porción=250
+Milanesa de carne frita|g|290|20|14|17|chica=100;mediana=150;grande=200|mila
+Milanesa de carne al horno|g|230|21|14|10|chica=100;mediana=150;grande=200|mila
+Milanesa de pollo frita|g|235|20|12|12|chica=100;mediana=150;grande=200|mila
+Milanesa de pollo al horno|g|190|21|12|6|chica=100;mediana=150;grande=200|mila
+Milanesa napolitana|g|270|19|10|17|chica=170;mediana=220;grande=300|mila
+Milanesa de soja|g|180|12|18|7|1 unidad=80;2 unidades=160
+Milanesa de pescado|g|220|16|15|11|chica=100;mediana=150
+Suprema de pollo|g|250|22|12|12|1 unidad=180
+Hamburguesa casera (medallón)|g|250|24|2|16|1 medallón=120
+Hamburguesa de paquete (medallón)|g|270|15|5|21|1 medallón=80;2 medallones=160|paty
+Hamburguesa simple con pan|g|250|13|24|11|1 unidad=150
+Hamburguesa completa|g|260|13|22|13|1 unidad=220
+Big Mac|g|230|12|20|12|1 unidad=220|mcdonalds
+Pancho|g|260|10|25|14|1 unidad=120|panchos,hot dog
+Choripán|g|320|14|20|20|1 unidad=200
+Lomito completo|g|230|14|20|10|1 unidad=350
+Sándwich de milanesa|g|250|12|25|11|1 unidad=300
+Sándwich de miga jamón y queso|g|290|13|30|13|1 simple=60;1 triple=110;2 triples=220
+Pebete de jamón y queso|g|270|13|30|10|1 unidad=120
+Tostado de jamón y queso|g|280|13|30|12|1 unidad=130|carlitos
+Medialuna de jamón y queso|g|310|12|35|14|1 unidad=80
+Wrap de pollo|g|200|12|22|7|1 unidad=250
+Sushi (roll de salmón)|g|150|6|25|3.5|1 pieza=30;5 piezas=150;10 piezas=300
+Fideos con tuco|g|168|5.5|27|4|medio plato=150;1 plato=250;1 plato grande=350
+Fideos con manteca y queso|g|190|7|27|6|medio plato=150;1 plato=250
+Fideos con crema|g|200|6|25|9|1 plato=250
+Ravioles con salsa|g|150|6|22|4|1 plato chico=200;1 plato=300
+Ñoquis con salsa|g|150|4|28|2.5|1 plato chico=200;1 plato=300|noquis
+Sorrentinos con crema|g|230|8|26|11|1 plato=300
+Polenta con tuco y queso|g|110|4|16|3.5|1 plato=300
+Risotto|g|150|4|22|5|1 plato=300
+Arroz primavera|g|130|3|22|3|1 plato=300
+Arroz con pollo|g|150|9|20|4|1 plato=300
+Guiso de lentejas|g|110|7|15|2.5|1 plato chico=250;1 plato=350
+Guiso de arroz con carne|g|120|6|16|3.5|1 plato=350
+Locro|g|130|7|14|5|1 plato=350
+Pastel de papa|g|150|9|13|7|1 porción=300
+Carne al horno con papas|g|160|15|12|6|1 porción=300
+Pollo al horno con papas|g|170|16|12|7|1 porción=300
+Wok de verduras con pollo|g|110|10|8|4|1 plato=350
+Ensalada César con pollo|g|150|10|6|10|1 plato=250
+Ensalada rusa|g|150|2.5|14|10|media taza=100;1 porción=150
+Ensalada mixta (sin aderezo)|g|20|1|4|0.2|1 taza=80;1 plato=150|lechuga tomate cebolla
+Ensalada de tomate y cebolla|g|25|1|5|0.3|1 plato=150
+Puré de papa|g|105|2.5|16|3.5|media porción=100;1 porción=200
+Puré de calabaza|g|50|1.2|10|1|1 porción=200
+Papas fritas (porción)|g|310|3.5|40|15|porción chica=100;porción=150;porción grande=200
+Papa al horno|g|110|2.5|23|1.5|1 unidad=150;1 porción=200
+Papas noisette|g|250|3|30|13|10 unidades=100
+Sopa de verduras|g|35|1.5|6|0.8|1 taza=250;1 plato=300
+Caldo|ml|8|0.5|1|0.3|1 taza=250
+Sopa crema (sobre)|ml|45|1|7|1.5|1 taza=250
+Matambre arrollado|g|180|20|2|10|1 porción=100
+Matambre de cerdo a la pizza|g|260|24|3|17|1 porción=200
+Vitel toné|g|220|18|2|16|1 porción=150
+Provoleta|g|350|25|2|27|1 unidad=120
+Rabas fritas|g|190|15|15|9|1 porción=150
+Buñuelos de acelga|g|230|6|20|14|1 unidad=40;3 unidades=120
+Croquetas de papa|g|220|5|25|11|1 unidad=40;3 unidades=120
+Tortilla de verduras|g|140|6|10|8|1 porción=150
+Humita|g|120|3|18|4|1 porción=250
+Pescado al horno con verduras|g|120|18|5|3|1 porción=250
+
+# ---------- Carnes y fiambres ----------
+Carne vacuna magra cruda|g|125|21|0|4|CARNE|nalga,bola de lomo,cuadril
+Carne vacuna magra cocida|g|180|29|0|7|bife chico=100;bife mediano=150;bife grande=200|nalga,bola de lomo,cuadril,bife
+Bife de chorizo|g|270|25|0|19|1 unidad=250;1 unidad chica=180
+Lomo|g|180|29|0|7|1 medallón=150;1 porción=200
+Asado|g|320|22|0|26|1 porción chica=150;1 porción=200;1 porción grande=300|tira de asado,costilla
+Vacío|g|230|27|0|13|1 porción=200
+Entraña|g|200|26|0|11|1 porción=200
+Carne picada común cruda|g|240|17|0|19|100 g=100;250 g=250
+Carne picada común cocida|g|270|25|0|18|1 porción=120
+Carne picada magra cocida|g|200|27|0|10|1 porción=120
+Carne al horno|g|220|28|0|12|1 porción=150;1 porción grande=200
+Estofado de carne|g|150|14|6|8|1 porción=250
+Pollo pechuga cruda|g|110|23|0|1.5|media pechuga=150;1 pechuga=300
+Pollo pechuga a la plancha|g|165|31|0|3.6|media pechuga=150;1 pechuga=300|pollo grillado
+Pollo muslo con piel al horno|g|230|26|0|14|1 pata=100;1 muslo=120;pata y muslo=220
+Pollo muslo sin piel|g|180|26|0|8|1 muslo=100
+Pollo asado con piel|g|240|27|0|14|1 presa=150;cuarto de pollo=300
+Alitas de pollo|g|290|27|0|20|1 unidad=40;6 unidades=240
+Pollo desmenuzado cocido|g|170|30|0|5|media taza=70;1 taza=140
+Cerdo bondiola|g|290|26|0|20|1 porción=150;1 porción grande=200
+Carré de cerdo|g|200|29|0|9|1 porción=150
+Chorizo|g|330|17|2|28|1 unidad=90;medio=45
+Morcilla|g|260|12|3|22|1 unidad=90
+Salchicha de viena|g|300|11|3|27|1 unidad=40;2 unidades=80
+Salchicha parrillera|g|320|15|2|28|1 unidad=80
+Jamón cocido|g|110|18|1.5|3.5|FETA
+Jamón crudo|g|250|26|0|16|1 feta=15;2 fetas=30;4 fetas=60
+Paleta|g|115|17|2|4|FETA
+Salame|g|400|22|2|34|1 feta=10;3 fetas=30;6 fetas=60
+Mortadela|g|310|14|3|27|FETA
+Panceta frita|g|540|37|1|42|1 feta=10;3 fetas=30
+Hígado vacuno cocido|g|190|29|4|5|1 porción=150
+Cordero asado|g|290|25|0|21|1 porción=200
+Pavo (pechuga) cocido|g|135|30|0|1|1 porción=150;1 feta=20
+
+# ---------- Pescados y mariscos ----------
+Merluza cruda|g|85|17|0|1.5|1 filet=150
+Merluza al horno o plancha|g|110|24|0|1.5|1 filet=150;1 filet grande=200|pescado
+Salmón cocido|g|200|22|0|12|1 porción=150
+Atún al natural (lata)|g|115|26|0|1|lata chica escurrida=100;lata grande escurrida=150
+Atún en aceite (lata)|g|200|27|0|10|lata chica escurrida=100;lata grande escurrida=150
+Sardinas en aceite|g|210|25|0|11|1 lata=120
+Caballa en lata|g|160|22|0|8|1 lata=120
+Calamar cocido|g|100|18|3|1.5|1 porción=150
+Camarones cocidos|g|100|21|0|1|6 unidades=60;1 porción=120|langostinos
+Mejillones cocidos|g|110|17|4|2|1 porción=120
+Kanikama (surimi)|g|95|8|13|1|1 unidad=20;4 unidades=80
+Pescado frito rebozado|g|230|16|14|12|1 filet=150
+
+# ---------- Huevos ----------
+Huevo entero|g|145|12.6|0.7|9.5|1 chico=45;1 mediano=50;1 grande=60;2 medianos=100|huevo duro,huevo crudo
+Huevo frito|g|195|13.6|0.8|15|1 unidad=55;2 unidades=110
+Huevo revuelto|g|170|11|2|12|1 huevo=60;2 huevos=120
+Clara de huevo|g|52|11|0.7|0.2|1 clara=33;2 claras=66
+Yema de huevo|g|320|16|3.6|27|1 yema=17
+
+# ---------- Lácteos ----------
+Leche entera|ml|61|3.2|4.7|3.3|VASO
+Leche parcialmente descremada|ml|47|3.3|4.8|1.5|VASO
+Leche descremada|ml|35|3.3|4.8|0.2|VASO
+Leche chocolatada|ml|80|3|11|2.5|VASO|cindor
+Leche con chocolatada en polvo|ml|105|3.5|16|3|VASO|nesquik,toddy
+Yogur entero saborizado|g|90|3.5|13|3|pote chico=120;pote=190;vaso=200
+Yogur descremado saborizado|g|55|3.8|8|0.1|pote chico=120;pote=190;vaso=200
+Yogur natural|g|65|4|5|3|pote=190;media taza=120
+Yogur griego|g|110|5|7|7|pote=150
+Yogur con cereales|g|110|3.5|18|2.5|pote=170
+Yogur bebible|ml|75|3|12|1.8|vaso=200;botella chica=185
+Queso cremoso|g|300|20|2|24|1 porción=30;1 porción grande=50|cuartirolo
+Queso port salut|g|300|23|1|23|1 porción=30;1 porción grande=50
+Queso port salut light|g|230|26|1|13|1 porción=30;1 porción grande=50
+Muzzarella|g|280|22|2|21|1 feta=30;1 porción=50|mozzarella,queso fresco
+Queso de máquina|g|340|24|1|27|1 feta=20;2 fetas=40;4 fetas=80|danbo,fontina,queso en fetas
+Queso rallado|g|420|32|2|32|cucharadita=5;cucharada=10|reggianito,sardo,parmesano
+Queso untable|g|240|7|4|22|cucharadita=8;cucharada=15|casancrem,finlandia,mendicrim
+Queso untable light|g|140|9|5|9|cucharadita=8;cucharada=15|casancrem,finlandia
+Ricota entera|g|170|11|3|13|cucharada=30;media taza=120
+Ricota descremada|g|100|11|4|4|cucharada=30;media taza=120
+Queso azul|g|350|21|2|29|1 porción=30|roquefort
+Queso provolone|g|350|25|2|27|1 porción=30
+Queso crema|g|340|6|4|34|cucharada=15|philadelphia
+Crema de leche|g|300|2|3|32|cucharada=15;media taza=120
+Manteca|g|740|0.5|0|82|cucharadita=5;cucharada=10;1 pancito (porción)=10
+Margarina|g|720|0|0|80|cucharadita=5;cucharada=10
+Dulce de leche|g|310|6|55|7|cucharadita=10;cucharada=20;cucharada colmada=30
+Leche condensada|g|320|8|55|8|cucharada=20
+Flan|g|140|4|24|3|1 pote=120;1 porción=150
+Flan con dulce de leche|g|200|4|36|4|1 porción=180
+Postre de vainilla o chocolate|g|120|3|20|3|1 pote=100|serenito,danette
+Helado de crema|g|210|4|25|11|1 bocha=60;cucurucho=120;vasito=150;cuarto kilo=250
+Helado de agua|g|110|0.5|27|0|1 bocha=60;cucurucho=120;palito=80
+Gelatina|g|60|1.5|14|0|1 pote=120
+
+# ---------- Verduras y hortalizas ----------
+Papa cruda|g|77|2|17|0.1|1 chica=100;1 mediana=150;1 grande=250
+Papa hervida|g|86|1.7|20|0.1|1 chica=100;1 mediana=150;1 grande=250
+Batata hervida|g|90|1.6|21|0.1|1 chica=100;1 mediana=150;1 grande=250
+Batata al horno|g|100|1.8|23|0.5|1 mediana=150
+Zapallo o calabaza cocida|g|26|1|6|0.1|media taza=100;1 taza=200;1 porción=150|calabaza,anco
+Zanahoria|g|41|0.9|10|0.2|1 mediana=80;media taza rallada=55
+Tomate|g|18|0.9|3.9|0.2|1 rodaja=20;1 mediano=120;1 grande=180
+Tomate cherry|g|18|0.9|3.9|0.2|5 unidades=85;10 unidades=170
+Lechuga|g|15|1.4|2.9|0.2|1 hoja=10;1 taza=50;1 plato=100
+Rúcula|g|25|2.6|3.7|0.7|1 taza=20;1 puñado=30
+Cebolla|g|40|1.1|9|0.1|cucharada=15;media unidad=55;1 mediana=110
+Cebolla de verdeo|g|32|1.8|7|0.2|1 unidad=15
+Ajo|g|150|6|33|0.5|1 diente=3
+Morrón|g|27|1|6|0.3|media unidad=60;1 unidad=120
+Zapallito o zucchini|g|17|1.2|3|0.3|1 unidad=150;media taza=90
+Berenjena|g|25|1|6|0.2|media unidad=125;1 unidad=250
+Acelga cocida|g|20|1.9|4|0.1|VEG
+Espinaca cocida|g|23|3|3.8|0.3|VEG
+Brócoli cocido|g|35|2.4|7|0.4|VEG
+Coliflor cocida|g|23|1.8|4|0.5|VEG
+Repollo|g|25|1.3|6|0.1|VEG
+Choclo|g|96|3.4|21|1.5|media taza=80;1 espiga=150;1 lata=300|maíz
+Arvejas cocidas|g|70|4.5|12|0.4|media taza=80;1 taza=160;1 lata=300
+Chauchas cocidas|g|35|1.9|8|0.2|VEG
+Remolacha cocida|g|44|1.7|10|0.2|1 unidad=80;media taza=85
+Pepino|g|15|0.7|3.6|0.1|media unidad=100;1 unidad=200
+Apio|g|16|0.7|3|0.2|1 tallo=40
+Palta|g|160|2|8.5|15|cucharada=20;media unidad=70;1 unidad=140|aguacate
+Champiñones|g|22|3|3.3|0.3|media taza=35;1 taza=70|hongos
+Puerro|g|60|1.5|14|0.3|1 unidad=90
+Rabanito|g|16|0.7|3.4|0.1|5 unidades=50
+Aceitunas|g|115|0.8|6|11|1 unidad=4;10 unidades=40
+Salsa de tomate (tuco)|g|50|1.5|8|1.5|cucharada=15;cucharón=100
+Tomate triturado|g|32|1.6|7|0.2|media taza=120;1 lata=400
+Pickles|g|20|0.5|4|0.2|1 porción=30
+Verduras al horno (mix)|g|80|2|12|3|1 porción=200
+Verduras al vapor (mix)|g|35|2|7|0.3|1 porción=200
+
+# ---------- Legumbres, frutos secos y semillas ----------
+Lentejas crudas|g|350|25|60|1|media taza=100;1 taza=200
+Lentejas cocidas|g|116|9|20|0.4|media taza=100;1 taza=200
+Garbanzos crudos|g|365|19|61|6|media taza=100;1 taza=200
+Garbanzos cocidos|g|164|9|27|2.6|media taza=80;1 taza=165;1 lata=300
+Porotos cocidos|g|130|8.5|23|0.5|media taza=90;1 taza=180;1 lata=300|alubias,porotos negros
+Soja texturizada seca|g|340|50|30|1|media taza=45;1 taza=90
+Tofu|g|76|8|2|4.8|1 porción=100
+Hummus|g|170|8|14|10|cucharada=15;media taza=120
+Maní tostado|g|590|26|16|50|cucharada=10;puñado=30;paquete chico=50
+Nueces|g|650|15|14|65|1 unidad=5;puñado=30
+Almendras|g|580|21|22|50|10 unidades=12;puñado=30
+Castañas de cajú|g|550|18|30|44|puñado=30
+Pasas de uva|g|300|3|79|0.5|cucharada=10;puñado=30
+Mix de frutos secos|g|550|17|25|45|puñado=30
+Semillas de chía|g|490|17|42|31|cucharadita=4;cucharada=10
+Semillas de girasol|g|580|21|20|51|cucharada=10;puñado=30
+Semillas de lino|g|530|18|29|42|cucharada=10
+Mantequilla de maní|g|590|25|20|50|cucharadita=8;cucharada=16
+
+# ---------- Frutas ----------
+Manzana|g|52|0.3|14|0.2|1 chica=120;1 mediana=180;1 grande=220
+Banana|g|89|1.1|23|0.3|1 chica=90;1 mediana=120;1 grande=150
+Naranja|g|47|0.9|12|0.1|1 mediana=150;1 grande=200
+Mandarina|g|53|0.8|13|0.3|1 unidad=90;2 unidades=180
+Pera|g|57|0.4|15|0.1|1 mediana=180
+Durazno|g|39|0.9|10|0.3|1 mediano=150
+Damasco|g|48|1.4|11|0.4|1 unidad=35;3 unidades=105
+Ciruela|g|46|0.7|11|0.3|1 unidad=65;3 unidades=195
+Uva|g|69|0.7|18|0.2|10 uvas=50;1 taza=150;racimo chico=100
+Frutilla|g|32|0.7|7.7|0.3|1 unidad=15;1 taza=150
+Sandía|g|30|0.6|8|0.2|1 taza=150;1 tajada=300
+Melón|g|34|0.8|8|0.2|1 taza=150;1 tajada=200
+Kiwi|g|61|1.1|15|0.5|1 unidad=75
+Ananá|g|50|0.5|13|0.1|1 rodaja=80;1 taza=165
+Pomelo|g|42|0.8|11|0.1|media unidad=120;1 unidad=240
+Cereza|g|63|1|16|0.2|10 unidades=70;1 taza=140
+Mango|g|60|0.8|15|0.4|media unidad=100;1 unidad=200
+Arándanos|g|57|0.7|14|0.3|puñado=50;1 taza=150
+Higo|g|74|0.8|19|0.3|1 unidad=50
+Fruta en almíbar|g|75|0.5|19|0|media taza=120;1 taza=240
+Ensalada de frutas|g|55|0.7|14|0.2|1 taza=200;1 pote=250
+Jugo de naranja exprimido|ml|45|0.7|10|0.2|vaso chico=200;vaso=250
+Limón (jugo)|ml|22|0.4|7|0.2|cucharada=15;medio limón=25
+
+# ---------- Aceites, aderezos y condimentos ----------
+Aceite de girasol|ml|884|0|0|100|cucharadita=5;cucharada=14;chorrito=7
+Aceite de oliva|ml|884|0|0|100|cucharadita=5;cucharada=14;chorrito=7
+Mayonesa|g|680|1|2|75|cucharadita=5;cucharada=15;sobre=10
+Mayonesa light|g|330|1|8|32|cucharadita=5;cucharada=15
+Ketchup|g|100|1|25|0.1|cucharadita=5;cucharada=15;sobre=10
+Mostaza|g|65|4|6|3|cucharadita=5;cucharada=15
+Salsa golf|g|520|1|10|52|cucharadita=5;cucharada=15
+Salsa barbacoa|g|170|1|40|0.5|cucharada=15
+Salsa de soja|ml|55|8|5|0|cucharadita=5;cucharada=15
+Chimichurri|g|250|1|6|25|cucharadita=5;cucharada=15
+Vinagre|ml|20|0|0.5|0|cucharada=15
+Sal|g|0|0|0|0|pizca=1
+Caldo en cubo|g|250|10|15|18|1 cubo=10
+Azúcar|g|400|0|100|0|cucharadita=4;cucharada=12;sobre=6
+Edulcorante|g|0|0|0|0|gotas=1
+Miel|g|304|0.3|82|0|cucharadita=7;cucharada=21
+Mermelada|g|250|0.3|62|0.1|cucharadita=10;cucharada=20
+Mermelada light|g|120|0.3|30|0.1|cucharadita=10;cucharada=20
+Dulce de membrillo o batata|g|240|0.3|60|0|1 porción fina=30;1 porción=50
+Cacao amargo en polvo|g|230|20|55|12|cucharadita=3;cucharada=8
+Chocolatada en polvo|g|380|5|85|3|cucharadita=5;cucharada=15|nesquik,toddy
+Café instantáneo (polvo)|g|350|12|75|0.5|cucharadita=2
+
+# ---------- Dulces y snacks ----------
+Chocolate con leche|g|535|7|58|30|1 cuadradito=6;barra chica=25;tableta=100
+Chocolate amargo 70%|g|580|8|35|42|1 cuadradito=6;barra chica=25
+Chocolate blanco|g|540|6|59|32|1 cuadradito=6;barra chica=25
+Alfajor simple|g|450|5|65|19|1 unidad=50|jorgito,guaymallen
+Alfajor triple|g|470|5|62|22|1 unidad=70|milka,terrabusi,havanna
+Alfajor de maicena|g|440|5|60|20|1 unidad=45
+Bon o Bon|g|540|8|55|32|1 unidad=15
+Turrón de maní|g|460|10|65|18|1 unidad=25
+Caramelo|g|390|0|97|0|1 unidad=5
+Chupetín|g|390|0|97|0|1 unidad=10
+Gomitas|g|340|6|78|0|puñado=30;paquete=50
+Chicle|g|250|0|65|0|1 unidad=3
+Maní con chocolate|g|520|13|50|30|puñado=30
+Pochoclo dulce|g|450|7|70|15|1 taza=12;balde chico=60;balde grande=120|pororó
+Pochoclo salado|g|480|9|60|22|1 taza=10;balde chico=60
+Papas fritas de paquete|g|540|6|50|35|puñado=25;paquete chico=40;paquete grande=100|lays,chips
+Palitos salados|g|390|11|78|4|puñado=25;paquete chico=50
+Chizitos|g|500|7|55|28|puñado=20;paquete=40|cheetos
+Nachos|g|500|7|60|25|puñado=25;porción=80
+Tortilla de arroz (galleta de arroz)|g|387|8|82|3|1 unidad=9;3 unidades=27|galletas de arroz
+Barra de granola|g|420|7|65|14|1 unidad=30
+Helado en palito (bombón)|g|300|4|30|19|1 unidad=70
+
+# ---------- Bebidas ----------
+Agua|ml|0|0|0|0|VASO
+Agua con gas|ml|0|0|0|0|VASO
+Agua saborizada|ml|20|0|5|0|vaso=250;botella chica=500;botella=1000|levite,aquarius
+Soda|ml|0|0|0|0|VASO
+Coca-Cola|ml|42|0|10.6|0|BEB|coca,gaseosa
+Coca-Cola Zero|ml|0|0|0|0|BEB|coca zero,coca light,gaseosa light
+Sprite|ml|40|0|9.9|0|BEB|gaseosa
+Fanta|ml|46|0|11.5|0|BEB|gaseosa
+Pepsi|ml|42|0|11|0|BEB|gaseosa
+Seven Up|ml|40|0|10|0|BEB|7up,gaseosa
+Manaos|ml|40|0|10|0|BEB|gaseosa
+Gaseosa light o zero|ml|0|0|0|0|BEB
+Agua tónica|ml|34|0|8.5|0|vaso=250;lata=354
+Jugo en polvo (Tang)|ml|14|0|3.5|0|VASO|tang,jugo
+Jugo en polvo light (Clight)|ml|1|0|0.2|0|VASO|clight
+Jugo de naranja comercial|ml|45|0.5|11|0|vaso chico=200;vaso=250;tetra chico=200|cepita,baggio
+Jugo de manzana|ml|46|0.1|11|0.1|vaso chico=200;vaso=250
+Licuado de banana con leche|ml|90|3|15|2|vaso=300;vaso grande=400
+Licuado de frutilla con agua|ml|40|0.5|9|0.2|vaso=300
+Té helado|ml|30|0|7.5|0|vaso=250;botella=500|nestea
+Bebida isotónica|ml|24|0|6|0|vaso=250;botella=500|gatorade,powerade
+Bebida energética|ml|45|0|11|0|lata chica=250;lata=473|speed,red bull,monster
+Café negro|ml|2|0.2|0|0|pocillo=60;taza=150;taza grande=250|cafe
+Café con leche (sin azúcar)|ml|35|1.8|2.6|1.8|pocillo=90;taza=200;taza grande=250|cafe
+Cortado|ml|25|1.3|1.9|1.3|pocillo=90|cafe
+Café con crema|ml|60|1|3|5|taza=200|cafe
+Té o mate cocido (sin azúcar)|ml|1|0|0.2|0|taza=250|te
+Té o mate cocido con azúcar|ml|7|0|1.6|0|taza=250|te
+Mate amargo|ml|0|0|0|0|1 mate=50;termo chico=500;termo 1 litro=1000
+Mate con azúcar|ml|16|0|4|0|1 mate=50;termo chico=500;termo 1 litro=1000|mate dulce
+Tereré|ml|10|0|2.5|0|1 vaso=250;termo 1 litro=1000
+Chocolate caliente|ml|90|3.5|14|2.5|taza=200
+Cerveza rubia|ml|43|0.5|3.6|0|vaso=250;porrón=330;lata=473;litro=1000|birra
+Cerveza negra o roja|ml|55|0.6|4.5|0|vaso=250;porrón=330;lata=473;litro=1000|birra
+Cerveza IPA|ml|60|0.5|5|0|vaso=250;porrón=330;lata=473|birra
+Cerveza sin alcohol|ml|25|0.4|5|0|porrón=330;lata=354
+Vino tinto|ml|85|0.1|2.6|0|copa=150;vaso=200|vino
+Vino blanco|ml|82|0.1|2.6|0|copa=150;vaso=200|vino
+Espumante|ml|76|0.2|1.5|0|copa=120|champagne
+Sidra|ml|50|0|5|0|copa=150;vaso=250
+Fernet con Coca|ml|95|0|8|0|vaso=250;vaso grande=400|fernet
+Fernet solo|ml|230|0|10|0|medida=45
+Vodka, gin o whisky|ml|230|0|0|0|medida=45;medida doble=90|vodka,gin,whisky,ron
+Gin tonic|ml|76|0|6|0|vaso=250
+Campari con naranja|ml|100|0|10|0|vaso=250
+Licor cremoso|ml|330|3|25|15|medida=50|baileys
+Cuba libre (ron con Coca)|ml|90|0|9|0|vaso=250
+Vermut con soda|ml|60|0|6|0|vaso=250|vermouth
