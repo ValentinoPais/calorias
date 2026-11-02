@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Calorías">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Calorías</title>
+<style>
+  :root {
+    --ink: #111; --muted: #757575; --light: #a3a3a3; --hair: #ececec; --bg: #fff; --field: #f3f3f3; --red: #d23c2a;
+    --c: #e39a1b; --c-bg: #fbefd3; --c-ink: #8a5a00;   /* carbos */
+    --g: #3da35d; --g-bg: #e1f3e6; --g-ink: #1f6b3a;   /* grasa */
+    --p: #3b7ded; --p-bg: #e4edfd; --p-ink: #1e4fbf;   /* proteína */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; background: var(--bg); }
+  body { font-family: -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", Roboto, sans-serif; color: var(--ink); font-size: 16px; line-height: 1.35; -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums; overscroll-behavior: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  input { font: inherit; color: inherit; }
+  input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+  input[type=search]::-webkit-search-decoration, input[type=search]::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+  #app { position: fixed; inset: 0; display: flex; flex-direction: column; background: var(--bg); padding-top: env(safe-area-inset-top); }
+  .screen { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+  .pad { padding-left: 20px; padding-right: 20px; }
+  .top { flex: none; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .ttl { font-weight: 600; }
+  .back { color: var(--muted); padding: 8px 8px 8px 0; margin-left: -2px; }
+  .scroll { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: #c4c4c4 transparent; }
+  .scroll::-webkit-scrollbar { width: 3px; }
+  .scroll::-webkit-scrollbar-thumb { background: #c4c4c4; border-radius: 2px; }
+  .bottom { flex: none; padding: 10px 20px calc(14px + env(safe-area-inset-bottom)); background: var(--bg); }
+  .btn { display: flex; align-items: center; justify-content: center; width: 100%; height: 52px; border-radius: 12px; background: var(--ink); color: #fff; font-weight: 600; }
+  .btn:active { opacity: .85; }
+  .btn[disabled] { opacity: .3; pointer-events: none; }
+  .btn.ghost { background: var(--field); color: var(--ink); }
+  .btn.danger { background: var(--red); }
+  .dlg-msg { margin: 4px 0 20px; }
+  .dlg-btns { display: flex; gap: 10px; }
+  .muted { color: var(--muted); }
+  .light { color: var(--light); }
+  .small { font-size: 13px; }
+  .red { color: var(--red); }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -.02em; line-height: 1.15; }
+  .empty { padding: 28px 0; text-align: center; }
+  .link { color: var(--ink); font-weight: 600; border-bottom: 1.5px solid var(--ink); }
+
+  /* encuesta */
+  .fields { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
+  .field { flex: 1; min-height: 56px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hair); }
+  .field:last-child { border-bottom: 0; }
+  .ctl, .seg { width: 176px; height: 36px; border: 1.5px solid var(--ink); border-radius: 10px; overflow: hidden; display: flex; flex: none; background: #fff; }
+  .ctl button { width: 36px; flex: none; background: var(--ink); color: #fff; font-size: 18px; font-weight: 500; line-height: 1; }
+  .ctl .v { flex: 1; display: flex; align-items: center; justify-content: center; min-width: 0; }
+  .ctl .grp { display: inline-flex; align-items: baseline; gap: 4px; line-height: 1; }
+  .ctl input { width: 3ch; min-width: 2.5ch; max-width: 6ch; text-align: center; font-weight: 600; font-size: 16px; border: 0; outline: 0; background: transparent; padding: 0; }
+  .ctl .u { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .seg button { flex: 1; font-size: 14px; font-weight: 500; }
+  .seg button.on { background: var(--ink); color: #fff; }
+  .justify { text-align: justify; }
+  .bigrow { display: flex; align-items: baseline; gap: 10px; }
+  .big { font-weight: 300; font-size: 76px; letter-spacing: -.04em; line-height: 1; }
+  .srow { display: flex; justify-content: space-between; align-items: center; min-height: 56px; border-bottom: 1px solid var(--hair); }
+  .srow:last-child { border-bottom: 0; }
+  .chev { color: #b5b5b5; }
+
+  /* hoy */
+  .datenav { display: flex; align-items: center; gap: 6px; min-width: 0; }
+  .nav { color: var(--muted); font-size: 22px; padding: 6px 8px; }
+  .nav[disabled] { opacity: .3; }
+  .datelbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 8px 2px; }
+  .icon { padding: 8px 0 8px 8px; display: flex; }
+  .hero { flex: none; padding: 16px 20px 22px; border-bottom: 1px solid var(--hair); }
+  .bar2 { height: 8px; background: var(--hair); border-radius: 4px; overflow: hidden; display: flex; margin: 16px 0 10px; }
+  .bar2 i, .bar i { display: block; height: 100%; }
+  .seg-c { background: var(--c); } .seg-g { background: var(--g); } .seg-p { background: var(--p); }
+  .line { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: baseline; gap: 3px; height: 22px; padding: 0 8px; border-radius: 11px; font-size: 11px; font-weight: 700; line-height: 22px; white-space: nowrap; }
+  .pill i { font-style: normal; font-weight: 500; font-size: 9px; }
+  .pill-c { background: var(--c-bg); color: var(--c-ink); } .pill-g { background: var(--g-bg); color: var(--g-ink); } .pill-p { background: var(--p-bg); color: var(--p-ink); }
+  .pill.rest { background: var(--field); color: var(--muted); font-weight: 600; }
+  .pill.rest.red { background: #fbe4e1; color: var(--red); }
+  .meal { padding: 14px 0 12px; border-bottom: 1px solid var(--hair); }
+  .meal .h { display: flex; justify-content: space-between; align-items: center; font-weight: 600; margin-bottom: 6px; }
+  .meal .it { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; color: #333; font-size: 15px; line-height: 1.6; }
+  .meal .it .por, .meal .it .k { color: #8a8a8a; font-size: 12px; white-space: nowrap; }
+  .meal .it .n { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* comida */
+  input[type=time]::-webkit-calendar-picker-indicator { display: none; }
+  .time { font-weight: 600; border: 0; border-bottom: 1.5px solid var(--ink); border-radius: 0; background: transparent; padding: 0; -webkit-appearance: none; appearance: none; text-align: right; }
+  .status { flex: none; padding-top: 2px; }
+  .bar { height: 4px; background: var(--hair); border-radius: 2px; overflow: hidden; display: flex; margin: 8px 0 14px; }
+  .bar i { background: var(--ink); } .bar i.proj { background: #bdbdbd; }
+  .search { display: flex; align-items: center; gap: 10px; height: 46px; border-radius: 12px; background: var(--field); padding: 0 14px; margin-bottom: 8px; }
+  .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 16px; }
+  .res { width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; min-height: 52px; padding: 14px 0; border-bottom: 1px solid var(--hair); text-align: left; }
+  .res .n { min-width: 0; }
+  .res .k { font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .tag { font-size: 10px; font-weight: 600; color: var(--muted); background: var(--field); border-radius: 6px; padding: 1px 5px; margin-left: 6px; vertical-align: 1px; }
+  .manual { padding: 20px 0 30px; }
+  .item { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 54px; border-bottom: 1px solid var(--hair); }
+  .item .n { min-width: 0; }
+  .item .r { display: flex; align-items: center; flex: none; }
+  .item .x { width: 24px; height: 24px; border-radius: 12px; border: 1.5px solid #d0d0d0; color: #8a8a8a; font-size: 14px; display: flex; align-items: center; justify-content: center; margin-left: 14px; }
+  .total { display: flex; justify-content: space-between; font-weight: 600; margin-top: 18px; }
+  .del { display: block; width: 100%; text-align: center; color: var(--red); padding: 28px 0; }
+
+  /* sheet */
+  .dim { position: absolute; inset: 0; background: rgba(0,0,0,.38); z-index: 20; }
+  .sheet { position: absolute; left: 0; right: 0; bottom: 0; z-index: 21; background: #fff; border-radius: 22px 22px 0 0; padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); max-height: 92%; overflow-y: auto; }
+  .grab { width: 36px; height: 4px; background: #d8d8d8; border-radius: 2px; margin: 0 auto 18px; }
+  .sh-name { font-weight: 600; font-size: 18px; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0 10px; }
+  .chip { min-height: 48px; border: 1.5px solid #dcdcdc; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 500; padding: 6px 10px; text-align: center; }
+  .chip.on { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .gin { display: flex; align-items: center; justify-content: space-between; height: 52px; border: 1.5px solid var(--ink); border-radius: 12px; padding: 0 16px; margin-bottom: 14px; gap: 8px; }
+  .gin input { width: 90px; font-weight: 600; font-size: 18px; border: 0; outline: 0; background: transparent; }
+  .gin .u { flex: 1; }
+  .frow { display: flex; gap: 10px; margin-top: 10px; }
+  .fin { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .fin label { font-size: 12px; color: var(--muted); }
+  .fin input { height: 44px; border: 1.5px solid #dcdcdc; border-radius: 10px; padding: 0 12px; outline: 0; font-size: 16px; width: 100%; }
+  .fin input:focus { border-color: var(--ink); }
+  .check { display: flex; align-items: center; gap: 8px; margin: 16px 0; font-size: 14px; color: var(--muted); }
+  .check input { width: 18px; height: 18px; accent-color: var(--ink); }
+  .foot { padding: 24px 0; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="foods.js"></script>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'calorias.v1';
+  var app = document.getElementById('app');
+  var GEAR = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+  var LUPA = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+
+  // ---------- utilidades ----------
+  var DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  function fmt(n) { return Math.round(n).toLocaleString('es-AR'); }
+  function r1(n) { return Math.round(n * 10) / 10; }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function parseKey(k) { var p = k.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function todayKey() { return dateKey(new Date()); }
+  function shiftKey(k, n) { var d = parseKey(k); d.setDate(d.getDate() + n); return dateKey(d); }
+  function nowTime() { var d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+  function longDate(k) { var d = parseKey(k); return DIAS[d.getDay()] + ' ' + d.getDate() + ' de ' + MESES[d.getMonth()]; }
+  function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function fit(el) { el.style.width = (String(el.value).length + 0.6) + 'ch'; }
+  function num(v) { var n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; }
+
+  // ---------- estado ----------
+  var S = load();
+  function load() {
+    try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && s.dias) { s.propios = s.propios || []; return s; } } catch (e) {}
+    return { perfil: null, dias: {}, propios: [] };
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(S)); }
+    catch (e) { ask('No se pudo guardar: el navegador bloqueó el almacenamiento.'); }
+  }
+
+  var view = S.perfil ? 'hoy' : 'encuesta';
+  var sel = todayKey();   // día que se ve en Hoy
+  var form = null;        // encuesta en edición
+  var calc = null;        // resultado de la encuesta
+  var draft = null;       // comida en edición {id, hora, items, dia, nueva, dirty}
+  var q = '';             // texto buscado
+  var sheet = null;       // {food, qty, lab} | {manual:true}
+  var dialog = null;      // {msg, ok, cb}: confirmación propia (confirm() no sirve en todos lados)
+  function ask(msg, ok, cb) { dialog = { msg: msg, ok: ok, cb: cb }; render(); }
+  function dialogHTML() {
+    return '<div class="dim" data-act="dlg-no"></div><div class="sheet"><div class="grab"></div><p class="dlg-msg">' + esc(dialog.msg) + '</p>' +
+      (dialog.ok ? '<div class="dlg-btns"><button class="btn ghost" data-act="dlg-no">Cancelar</button><button class="btn danger" data-act="dlg-yes">' + esc(dialog.ok) + '</button></div>' : '<button class="btn" data-act="dlg-no">Entendido</button>') + '</div>';
+  }
+
+  // ---------- cálculo del objetivo ----------
+  var ACT = { baja: 1.2, media: 1.375, alta: 1.55 };
+  function calcular(f) {
+    var basal = 10 * f.peso + 6.25 * f.altura - 5 * f.edad + (f.sexo === 'h' ? 5 : -161);
+    var mant = basal * ACT[f.actividad];
+    var deficit = f.bajar * 7700 / (f.semanas * 7);
+    var piso = f.sexo === 'h' ? 1500 : 1200;
+    var obj = mant - deficit, aviso = null;
+    if (obj < piso) {
+      var defMax = mant - piso;
+      var semMin = defMax > 0 ? Math.ceil(f.bajar * 7700 / defMax / 7) : 0;
+      aviso = semMin ? 'Para no bajar de ' + fmt(piso) + ' kcal hacen falta al menos ' + semMin + ' semanas. El objetivo queda en ' + fmt(piso) + '.' : 'El objetivo no puede bajar de ' + fmt(piso) + ' kcal.';
+      obj = piso;
+    }
+    return { mant: Math.round(mant / 10) * 10, deficit: Math.round(deficit), objetivo: Math.round(obj / 10) * 10, aviso: aviso };
+  }
+
+  // ---------- totales ----------
+  function meals(k) { return S.dias[k] || []; }
+  function sumItems(items) {
+    var t = { kcal: 0, p: 0, c: 0, g: 0 };
+    items.forEach(function (i) { t.kcal += i.kcal; t.p += i.p; t.c += i.c; t.g += i.g; });
+    return t;
+  }
+  function dayTot(k, skipId) {
+    var all = [];
+    meals(k).forEach(function (m) { if (m.id !== skipId) all = all.concat(m.items); });
+    return sumItems(all);
+  }
+  function pcts(vals) {
+    var s = vals.reduce(function (a, b) { return a + b; }, 0);
+    if (!s) return vals.map(function () { return 0; });
+    var raw = vals.map(function (v) { return v / s * 100; });
+    var fl = raw.map(Math.floor);
+    var rem = 100 - fl.reduce(function (a, b) { return a + b; }, 0);
+    var order = raw.map(function (v, i) { return [v - fl[i], i]; }).sort(function (a, b) { return b[0] - a[0]; });
+    for (var j = 0; j < rem; j++) fl[order[j][1]]++;
+    return fl;
+  }
+  function macros(t) {
+    var list = [
+      { key: 'c', nombre: 'Carbos', g: t.c, kcal: t.c * 4 },
+      { key: 'g', nombre: 'Grasa', g: t.g, kcal: t.g * 9 },
+      { key: 'p', nombre: 'Proteína', g: t.p, kcal: t.p * 4 }
+    ];
+    var pc = pcts(list.map(function (m) { return m.kcal; }));
+    list.forEach(function (m, i) { m.pct = pc[i]; });
+    return list.sort(function (a, b) { return b.kcal - a.kcal; });
+  }
+
+  // ---------- búsqueda ----------
+  function allFoods() {
+    return S.propios.map(function (f) { var c = Object.assign({}, f); c.propio = true; return c; }).concat(FOODS);
+  }
+  function search(qs) {
+    var nq = norm(qs).trim();
+    if (!nq) return [];
+    var toks = nq.split(/\s+/);
+    var out = [];
+    allFoods().forEach(function (f, i) {
+      var nn = norm(f.n), hay = nn + ' ' + (f.a ? norm(f.a) : '');
+      for (var i = 0; i < toks.length; i++) if (hay.indexOf(toks[i]) < 0) return;
+      var score = nn.indexOf(nq) === 0 ? 3 : nn.split(/[\s,()]+/).some(function (w) { return w.indexOf(toks[0]) === 0; }) ? 2 : nn.indexOf(nq) >= 0 ? 1 : 0;
+      out.push([score, -i, f]);
+    });
+    out.sort(function (a, b) { return b[0] - a[0] || b[1] - a[1]; });
+    return out.slice(0, 40).map(function (x) { return x[2]; });
+  }
+
+  // ---------- vistas ----------
+  function render() {
+    var html = view === 'encuesta' ? encuestaHTML() : view === 'objetivo' ? objetivoHTML() : view === 'comida' ? comidaHTML() : view === 'ajustes' ? ajustesHTML() : hoyHTML();
+    app.innerHTML = html + (dialog ? dialogHTML() : '');
+    if (view === 'comida' && !sheet) { var qi = document.getElementById('q'); if (qi && (draft.nueva || q)) qi.focus(); }
+  }
+
+  function fieldHTML(key, label, unit, step) {
+    return '<div class="field"><span>' + label + '</span><div class="ctl" data-f="' + key + '" data-step="' + step + '">' +
+      '<button data-dir="-1" aria-label="menos">−</button>' +
+      '<span class="v"><span class="grp"><input inputmode="decimal" value="' + form[key] + '" style="width:' + (String(form[key]).length + 0.6) + 'ch"><span class="u">' + unit + '</span></span></span>' +
+      '<button data-dir="1" aria-label="más">+</button></div></div>';
+  }
+  function segHTML(key, opts) {
+    return '<div class="seg" data-f="' + key + '">' + opts.map(function (o) {
+      return '<button data-v="' + o[0] + '" class="' + (form[key] === o[0] ? 'on' : '') + '">' + o[1] + '</button>';
+    }).join('') + '</div>';
+  }
+  function encuestaHTML() {
+    if (!form) form = S.perfil ? Object.assign({}, S.perfil) : { sexo: 'h', edad: 25, altura: 170, peso: 70, bajar: 5, semanas: 10, actividad: 'media' };
+    return '<div class="screen pad">' +
+      '<div style="height:24px"></div><h1>Antes de empezar</h1>' +
+      '<p class="muted justify" style="margin-top:8px">Sirve para calcular tu objetivo diario de calorías. Lo podés cambiar después.</p>' +
+      '<div style="height:24px"></div><div class="fields">' +
+      '<div class="field"><span>Sexo</span>' + segHTML('sexo', [['h', 'Hombre'], ['m', 'Mujer']]) + '</div>' +
+      fieldHTML('edad', 'Edad', 'años', 1) + fieldHTML('altura', 'Altura', 'cm', 1) + fieldHTML('peso', 'Peso', 'kg', 1) +
+      fieldHTML('bajar', 'Quiero bajar', 'kg', 1) + fieldHTML('semanas', 'En', 'semanas', 1) +
+      '<div class="field"><span>Actividad</span>' + segHTML('actividad', [['baja', 'Baja'], ['media', 'Media'], ['alta', 'Alta']]) + '</div>' +
+      '</div><div style="height:24px"></div>' +
+      '<div class="bottom" style="padding-left:0;padding-right:0;padding-top:0"><button class="btn" data-act="calcular">Calcular</button></div></div>';
+  }
+  function objetivoHTML() {
+    return '<div class="screen pad">' +
+      '<div style="height:24px"></div><h1>Objetivo</h1><div style="flex:1;min-height:24px;max-height:56px"></div>' +
+      '<div class="bigrow" style="justify-content:center"><span class="big">' + fmt(calc.objetivo) + '</span><span class="muted">kcal/día</span></div>' +
+      '<div style="flex:1;min-height:24px;max-height:56px"></div>' +
+      '<div class="srow"><span class="muted">Mantenimiento</span><span>' + fmt(calc.mant) + ' kcal</span></div>' +
+      '<div class="srow"><span class="muted">Déficit diario</span><span>−' + fmt(calc.deficit) + ' kcal</span></div>' +
+      '<div class="srow"><span class="muted">Meta</span><span>−' + form.bajar + ' kg en ' + form.semanas + ' semanas</span></div>' +
+      (calc.aviso ? '<p class="small red" style="margin-top:16px">' + calc.aviso + '</p>' : '') +
+      '<div style="flex:2"></div>' +
+      '<div class="bottom" style="padding-left:0;padding-right:0"><button class="btn" data-act="empezar">Empezar</button></div></div>';
+  }
+
+  function heroHTML(k) {
+    var t = dayTot(k), obj = S.perfil.objetivo;
+    var over = t.kcal > obj, rest = obj - t.kcal;
+    var m = macros(t), mk = m.reduce(function (a, x) { return a + x.kcal; }, 0);
+    var frac = Math.min(t.kcal / obj, 1);
+    var segs = m.map(function (x) { return '<i class="seg-' + x.key + '" style="width:' + (mk ? x.kcal / mk * frac * 100 : 0) + '%"></i>'; }).join('');
+    var pills = m.map(function (x) { return '<span class="pill pill-' + x.key + '" title="' + x.nombre + '">' + x.pct + '%<i>· ' + fmt(x.g) + ' g</i></span>'; }).join('');
+    return '<div class="hero">' +
+      '<div class="bigrow"><span class="big">' + fmt(t.kcal) + '</span><span class="muted">kcal <span class="light">/ ' + fmt(obj) + '</span></span></div>' +
+      '<div class="bar2">' + segs + '</div>' +
+      '<div class="line"><span class="pills">' + pills + '</span><span class="pill rest' + (over ? ' red' : '') + '">' + (over ? '+' : '−') + fmt(Math.abs(rest)) + '</span></div></div>';
+  }
+  function listHTML(k) {
+    var ms = meals(k).slice().sort(function (a, b) { return a.hora < b.hora ? -1 : a.hora > b.hora ? 1 : 0; });
+    if (!ms.length) return '<p class="empty muted">Todavía no cargaste nada.</p>';
+    return ms.map(function (m) {
+      var t = sumItems(m.items);
+      return '<div class="meal" data-meal="' + m.id + '"><div class="h"><span>' + esc(m.hora) + '</span><span>' + fmt(t.kcal) + '</span></div>' +
+        m.items.map(function (i) { return '<div class="it"><span class="n">' + esc(i.n) + ' <span class="por">· ' + esc(i.por) + '</span></span><span class="k">' + fmt(i.kcal) + '</span></div>'; }).join('') + '</div>';
+    }).join('');
+  }
+  function hoyHTML() {
+    var k = sel, isToday = k === todayKey(), label = isToday ? 'Hoy' : k === shiftKey(todayKey(), -1) ? 'Ayer' : '';
+    return '<div class="screen">' +
+      '<div class="top pad"><span class="datenav"><button class="nav" data-act="prev">‹</button>' +
+      '<button class="datelbl" data-act="today">' + (label ? '<b>' + label + '</b> ' : '') + '<span class="light">' + longDate(k) + '</span></button>' +
+      '<button class="nav" data-act="next"' + (isToday ? ' disabled' : '') + '>›</button></span>' +
+      '<button class="icon" data-act="ajustes" aria-label="Ajustes">' + GEAR + '</button></div>' +
+      heroHTML(k) +
+      '<div class="scroll pad">' + listHTML(k) + '</div>' +
+      '<div class="bottom"><button class="btn" data-act="nueva">+ Agregar comida</button></div></div>';
+  }
+
+  function comidaHTML() {
+    var base = dayTot(draft.dia, draft.id), t = sumItems(draft.items), obj = S.perfil.objetivo;
+    var proj = base.kcal + t.kcal;
+    var w1 = Math.min(base.kcal / obj, 1) * 100, w2 = Math.min(proj / obj, 1) * 100 - w1;
+    var dayLbl = draft.dia === todayKey() ? 'Hoy' : longDate(draft.dia);
+    var status = t.kcal ? fmt(base.kcal) + ' → <b style="color:#111">' + fmt(proj) + ' kcal · ' + Math.round(proj / obj * 100) + '%</b>' : fmt(base.kcal) + ' kcal · ' + Math.round(base.kcal / obj * 100) + '%';
+    return '<div class="screen">' +
+      '<div class="top pad"><button class="back" data-act="volver">‹ ' + dayLbl + '</button><span class="ttl">' + (draft.nueva ? 'Nueva comida' : 'Comida') + '</span><input type="time" class="time" id="hora" value="' + draft.hora + '"></div>' +
+      '<div class="pad status"><div class="muted small">' + dayLbl + ': ' + status + '</div><div class="bar"><i style="width:' + w1 + '%"></i><i class="proj" style="width:' + w2 + '%"></i></div></div>' +
+      '<div class="pad"><div class="search">' + LUPA + '<input type="search" id="q" placeholder="Buscar alimento o bebida" value="' + esc(q) + '" autocomplete="off" autocorrect="off" spellcheck="false" enterkeyhint="search"></div></div>' +
+      '<div class="scroll pad" id="body">' + (q ? resultsHTML() : itemsHTML()) + '</div>' +
+      '<div class="bottom"><button class="btn" data-act="guardar"' + (draft.items.length ? '' : ' disabled') + '>Guardar comida</button></div>' +
+      (sheet ? sheetHTML() : '') + '</div>';
+  }
+  function resultsHTML() {
+    var res = search(q);
+    var manual = '<div class="muted small manual">' + (res.length ? '¿No está? ' : 'Sin resultados. ') + '<button class="link" data-act="manual">Cargar a mano</button> (nombre y kcal)</div>';
+    return res.map(function (f, i) {
+      var per = f.u === 'u' ? fmt(f.k) + ' kcal / porción' : fmt(f.k) + ' kcal / 100 ' + f.u;
+      return '<button class="res" data-res="' + i + '"><span class="n">' + esc(f.n) + (f.propio ? '<span class="tag">propio</span>' : '') + '</span><span class="k">' + per + '</span></button>';
+    }).join('') + manual;
+  }
+  function itemsHTML() {
+    if (!draft.items.length) return '<p class="empty muted">Buscá arriba y elegí la porción.</p>' + (draft.nueva ? '' : '<button class="del" data-act="borrar-comida">Eliminar comida</button>');
+    var t = sumItems(draft.items);
+    return draft.items.map(function (i, idx) {
+      return '<div class="item"><span class="n">' + esc(i.n) + ' <span class="muted">· ' + esc(i.por) + '</span></span><span class="r">' + fmt(i.kcal) + '<button class="x" data-del="' + idx + '" aria-label="sacar">×</button></span></div>';
+    }).join('') +
+      '<div class="total"><span>Total</span><span>' + fmt(t.kcal) + ' kcal</span></div>' +
+      '<div class="muted small" style="margin-top:4px">Proteína ' + fmt(t.p) + ' g · Carbos ' + fmt(t.c) + ' g · Grasa ' + fmt(t.g) + ' g</div>' +
+      (draft.nueva ? '' : '<button class="del" data-act="borrar-comida">Eliminar comida</button>');
+  }
+  function itemKcal(f, qty) { return f.u === 'u' ? f.k * qty : f.k * qty / 100; }
+  function sheetHTML() {
+    if (sheet.manual) {
+      return '<div class="dim" data-act="cerrar"></div><div class="sheet"><div class="grab"></div><div class="sh-name">Cargar a mano</div>' +
+        '<div class="muted small" style="margin-top:2px">Valores de la porción que vas a comer.</div>' +
+        '<div class="frow"><div class="fin"><label>Nombre</label><input id="m-n" placeholder="Ej: tarta de la abuela"></div></div>' +
+        '<div class="frow"><div class="fin"><label>kcal</label><input id="m-k" type="number" inputmode="decimal" placeholder="0"></div></div>' +
+        '<div class="frow"><div class="fin"><label>Proteína g</label><input id="m-p" type="number" inputmode="decimal" placeholder="opcional"></div>' +
+        '<div class="fin"><label>Carbos g</label><input id="m-c" type="number" inputmode="decimal" placeholder="opcional"></div>' +
+        '<div class="fin"><label>Grasa g</label><input id="m-g" type="number" inputmode="decimal" placeholder="opcional"></div></div>' +
+        '<label class="check"><input type="checkbox" id="m-save" checked> Guardar para la próxima</label>' +
+        '<button class="btn" data-act="agregar-manual">Agregar</button></div>';
+    }
+    var f = sheet.food, perU = f.u === 'u', kcal = itemKcal(f, sheet.qty);
+    var pors = f.por.slice();
+    if (!perU && !pors.some(function (p) { return p[1] === 100; })) pors.push(['100 ' + f.u, 100]);
+    var chips = pors.map(function (p) {
+      return '<button class="chip' + (sheet.lab === p[0] ? ' on' : '') + '" data-chip="' + esc(p[0]) + '" data-g="' + p[1] + '">' + esc(p[0]) + (perU || /\d\s*(g|ml|litro|kg)$/.test(p[0]) ? '' : ' · ' + p[1] + ' ' + f.u) + '</button>';
+    }).join('');
+    return '<div class="dim" data-act="cerrar"></div><div class="sheet"><div class="grab"></div><div class="sh-name">' + esc(f.n) + '</div>' +
+      '<div class="muted small" style="margin-top:2px">' + (perU ? fmt(f.k) + ' kcal por porción' : fmt(f.k) + ' kcal / 100 ' + f.u) + ' · P ' + r1(f.p) + ' · C ' + r1(f.c) + ' · G ' + r1(f.g) + '</div>' +
+      '<div class="chips">' + chips + '</div>' +
+      '<div class="gin"><input type="number" inputmode="decimal" id="qty" value="' + sheet.qty + '" min="0" step="any"><span class="muted u">' + (perU ? 'porciones' : f.u) + '</span><span class="muted" id="qk">' + fmt(kcal) + ' kcal</span></div>' +
+      '<button class="btn" data-act="agregar" id="addbtn">Agregar · ' + fmt(kcal) + ' kcal</button></div>';
+  }
+
+  function ajustesHTML() {
+    return '<div class="screen">' +
+      '<div class="top pad"><button class="back" data-act="volver-hoy">‹ Hoy</button><span class="ttl">Ajustes</span><span style="width:40px"></span></div>' +
+      '<div class="scroll pad"><div style="height:8px"></div>' +
+      '<div class="srow"><span>Objetivo diario</span><div class="ctl" data-f="objetivo" data-step="10"><button data-dir="-1">−</button><span class="v"><span class="grp"><input inputmode="numeric" value="' + S.perfil.objetivo + '" style="width:' + (String(S.perfil.objetivo).length + 0.6) + 'ch"><span class="u">kcal</span></span></span><button data-dir="1">+</button></div></div>' +
+      '<button class="srow" style="width:100%;text-align:left" data-act="encuesta"><span>Rehacer encuesta</span><span class="chev">›</span></button>' +
+      '<button class="srow" style="width:100%;text-align:left" data-act="exportar"><span>Exportar datos (.json)</span><span class="chev">›</span></button>' +
+      '<button class="srow" style="width:100%;text-align:left" data-act="importar"><span>Importar datos</span><span class="chev">›</span></button>' +
+      '<input type="file" id="file" accept=".json,application/json" style="display:none">' +
+      '<button class="srow red" style="width:100%;text-align:left" data-act="borrar-todo"><span>Borrar todo</span></button>' +
+      '<p class="muted small foot">Los datos viven solo en este navegador. Exportá cada tanto por las dudas.</p>' +
+      '</div></div>';
+  }
+
+  // ---------- acciones ----------
+  var LIM = { edad: [10, 100], altura: [120, 230], peso: [30, 300], bajar: [0.5, 100], semanas: [1, 104], objetivo: [800, 6000] };
+  function setField(key, val) {
+    var l = LIM[key]; if (l) val = Math.min(l[1], Math.max(l[0], val));
+    if (key === 'objetivo') { S.perfil.objetivo = Math.round(val); save(); }
+    else form[key] = key === 'bajar' ? Math.round(val * 2) / 2 : Math.round(val);
+    return key === 'objetivo' ? S.perfil.objetivo : form[key];
+  }
+  function nuevaComida() { draft = { id: uid(), hora: nowTime(), items: [], dia: sel, nueva: true, dirty: false }; q = ''; sheet = null; view = 'comida'; render(); }
+  function editarComida(id) {
+    var m = meals(sel).filter(function (x) { return x.id === id; })[0]; if (!m) return;
+    draft = { id: m.id, hora: m.hora, items: m.items.map(function (i) { return Object.assign({}, i); }), dia: sel, nueva: false, dirty: false };
+    q = ''; sheet = null; view = 'comida'; render();
+  }
+  function guardarComida() {
+    if (!draft.items.length) return;
+    var list = S.dias[draft.dia] || (S.dias[draft.dia] = []);
+    var m = { id: draft.id, hora: draft.hora, items: draft.items };
+    var idx = -1; list.forEach(function (x, i) { if (x.id === draft.id) idx = i; });
+    if (idx >= 0) list[idx] = m; else list.push(m);
+    save(); draft = null; q = ''; sheet = null; view = 'hoy'; render();
+  }
+  function borrarComida() {
+    ask('¿Eliminar esta comida?', 'Eliminar', function () {
+      S.dias[draft.dia] = meals(draft.dia).filter(function (x) { return x.id !== draft.id; });
+      if (!S.dias[draft.dia].length) delete S.dias[draft.dia];
+      save(); draft = null; q = ''; sheet = null; view = 'hoy'; render();
+    });
+  }
+  function agregarItem() {
+    var f = sheet.food, qty = num(sheet.qty); if (!(qty > 0)) return;
+    var fac = f.u === 'u' ? qty : qty / 100;
+    var por = f.u === 'u' ? (qty === 1 ? '1 porción' : qty + ' porciones') : (sheet.lab ? sheet.lab + (/\d\s*(g|ml|litro|kg)$/.test(sheet.lab) ? '' : ' ' + fmt(qty) + ' ' + f.u) : r1(qty) + ' ' + f.u);
+    draft.items.push({ n: f.n, por: por, cant: qty, kcal: Math.round(f.k * fac), p: r1(f.p * fac), c: r1(f.c * fac), g: r1(f.g * fac) });
+    draft.dirty = true; sheet = null; q = ''; render();
+  }
+  function agregarManual() {
+    var n = document.getElementById('m-n').value.trim(), k = num(document.getElementById('m-k').value);
+    if (!n) { document.getElementById('m-n').focus(); return; }
+    var p = num(document.getElementById('m-p').value), c = num(document.getElementById('m-c').value), g = num(document.getElementById('m-g').value);
+    draft.items.push({ n: n, por: '1 porción', cant: 1, kcal: Math.round(k), p: r1(p), c: r1(c), g: r1(g) });
+    if (document.getElementById('m-save').checked) {
+      S.propios = S.propios.filter(function (f) { return f.n !== n; });
+      S.propios.unshift({ n: n, u: 'u', k: Math.round(k), p: r1(p), c: r1(c), g: r1(g), por: [['media porción', 0.5], ['1 porción', 1], ['2 porciones', 2]] });
+      save();
+    }
+    draft.dirty = true; sheet = null; q = ''; render();
+  }
+  function exportar() {
+    var blob = new Blob([JSON.stringify(S, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'calorias-' + todayKey() + '.json';
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  }
+  function importar(file) {
+    var r = new FileReader();
+    r.onload = function () {
+      try {
+        var s = JSON.parse(r.result);
+        if (!s || typeof s !== 'object' || !s.dias) throw 0;
+        ask('Esto reemplaza todos los datos actuales por los del archivo.', 'Importar', function () {
+          S = { perfil: s.perfil || null, dias: s.dias, propios: s.propios || [] }; save();
+          view = S.perfil ? 'hoy' : 'encuesta'; form = null; render();
+        });
+      } catch (e) { ask('El archivo no es un backup válido.'); }
+    };
+    r.readAsText(file);
+  }
+  function updateQty(v) {
+    sheet.qty = num(v);
+    var k = itemKcal(sheet.food, sheet.qty);
+    document.getElementById('qk').textContent = fmt(k) + ' kcal';
+    document.getElementById('addbtn').textContent = 'Agregar · ' + fmt(k) + ' kcal';
+    var m = sheet.food.por.filter(function (p) { return p[1] === sheet.qty; })[0];
+    sheet.lab = m ? m[0] : (!sheet.food.u || sheet.food.u === 'u' ? sheet.lab : (sheet.qty === 100 ? '100 ' + sheet.food.u : null));
+    var chips = document.querySelectorAll('.chip'); chips.forEach(function (ch) { ch.classList.toggle('on', ch.getAttribute('data-chip') === sheet.lab); });
+  }
+
+  app.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-act],[data-dir],[data-v],[data-chip],[data-meal],[data-res],[data-del]');
+    if (!t) return;
+    var act = t.getAttribute('data-act');
+    if (t.hasAttribute('data-dir')) {
+      var ctl = t.parentNode, key = ctl.getAttribute('data-f'), step = num(ctl.getAttribute('data-step')) * num(t.getAttribute('data-dir'));
+      var inp = ctl.querySelector('input'); inp.value = setField(key, num(inp.value) + step); fit(inp); return;
+    }
+    if (t.hasAttribute('data-v')) {
+      var sg = t.parentNode; form[sg.getAttribute('data-f')] = t.getAttribute('data-v');
+      sg.querySelectorAll('button').forEach(function (b) { b.classList.toggle('on', b === t); }); return;
+    }
+    if (t.hasAttribute('data-chip')) {
+      sheet.lab = t.getAttribute('data-chip'); sheet.qty = num(t.getAttribute('data-g'));
+      document.getElementById('qty').value = sheet.qty; updateQty(sheet.qty); return;
+    }
+    if (t.hasAttribute('data-meal')) { editarComida(t.getAttribute('data-meal')); return; }
+    if (t.hasAttribute('data-res')) {
+      var f = search(q)[+t.getAttribute('data-res')]; if (!f) return;
+      var first = f.por[0];
+      sheet = { food: f, qty: f.u === 'u' ? 1 : (f.por.length === 1 ? first[1] : 100), lab: f.u === 'u' ? '1 porción' : (f.por.length === 1 ? first[0] : null) };
+      if (f.u !== 'u' && f.por.length > 1) { var def = null; [/median/, /^1 /, /^porci/, /^vaso$/, /^taza$/, /^unidad/, /^cuchara/].some(function (re) { def = f.por.filter(function (p) { return re.test(p[0]); })[0]; return !!def; }); def = def || f.por[0]; sheet.qty = def[1]; sheet.lab = def[0]; }
+      render(); return;
+    }
+    if (t.hasAttribute('data-del')) { draft.items.splice(+t.getAttribute('data-del'), 1); draft.dirty = true; render(); return; }
+    switch (act) {
+      case 'calcular':
+        document.querySelectorAll('.ctl input').forEach(function (i) { i.value = setField(i.closest('.ctl').getAttribute('data-f'), num(i.value)); });
+        calc = calcular(form); view = 'objetivo'; render(); break;
+      case 'empezar':
+        S.perfil = { sexo: form.sexo, edad: form.edad, altura: form.altura, peso: form.peso, bajar: form.bajar, semanas: form.semanas, actividad: form.actividad, objetivo: calc.objetivo, mant: calc.mant };
+        save(); form = null; view = 'hoy'; render(); break;
+      case 'prev': sel = shiftKey(sel, -1); render(); break;
+      case 'next': if (sel < todayKey()) { sel = shiftKey(sel, 1); render(); } break;
+      case 'today': sel = todayKey(); render(); break;
+      case 'ajustes': view = 'ajustes'; render(); break;
+      case 'volver-hoy': view = 'hoy'; render(); break;
+      case 'encuesta': form = null; view = 'encuesta'; render(); break;
+      case 'nueva': nuevaComida(); break;
+      case 'volver':
+        if (draft.dirty) { ask('Hay cambios sin guardar.', 'Salir sin guardar', function () { draft = null; q = ''; sheet = null; view = 'hoy'; render(); }); return; }
+        draft = null; q = ''; sheet = null; view = 'hoy'; render(); break;
+      case 'guardar': guardarComida(); break;
+      case 'borrar-comida': borrarComida(); break;
+      case 'cerrar': sheet = null; render(); break;
+      case 'dlg-no': dialog = null; render(); break;
+      case 'dlg-yes': var cb = dialog.cb; dialog = null; cb(); break;
+      case 'agregar': agregarItem(); break;
+      case 'manual': sheet = { manual: true }; render(); setTimeout(function () { var i = document.getElementById('m-n'); if (i) i.focus(); }, 50); break;
+      case 'agregar-manual': agregarManual(); break;
+      case 'exportar': exportar(); break;
+      case 'importar': document.getElementById('file').click(); break;
+      case 'borrar-todo':
+        ask('Se borra todo: perfil, comidas y alimentos propios.', 'Borrar todo', function () { try { localStorage.removeItem(KEY); } catch (e) {} S = { perfil: null, dias: {}, propios: [] }; form = null; view = 'encuesta'; render(); });
+        break;
+    }
+  });
+
+  app.addEventListener('input', function (e) {
+    var el = e.target;
+    if (el.id === 'q') { q = el.value; document.getElementById('body').innerHTML = q ? resultsHTML() : itemsHTML(); return; }
+    if (el.id === 'qty') { updateQty(el.value); return; }
+    if (el.id === 'hora') { draft.hora = el.value || draft.hora; draft.dirty = true; return; }
+    if (el.tagName === 'INPUT' && el.closest('.ctl')) fit(el);
+  });
+  app.addEventListener('change', function (e) {
+    var el = e.target;
+    if (el.id === 'file') { if (el.files[0]) importar(el.files[0]); el.value = ''; return; }
+    var ctl = el.tagName === 'INPUT' ? el.closest('.ctl') : null;
+    if (ctl) { el.value = setField(ctl.getAttribute('data-f'), num(el.value)); fit(el); }
+  });
+  app.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && e.target.id === 'q') { var b = document.querySelector('[data-res="0"]'); if (b) b.click(); e.target.blur(); }
+    if (e.key === 'Escape' && (sheet || dialog)) { sheet = null; dialog = null; render(); }
+  });
+
+
+  render();
+})();
+</script>
+</body>
+</html>
